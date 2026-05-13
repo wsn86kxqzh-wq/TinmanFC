@@ -12,9 +12,9 @@ export default function Join() {
   }
 
   return (
-    <div className="min-h-screen pt-16 sm:pt-20 lg:pt-24">
+    <div className="min-h-screen pt-20 sm:pt-24 lg:pt-28">
       {/* Header */}
-      <section className="pt-6 pb-10 sm:pt-8 sm:pb-16 lg:pt-10 lg:pb-20 relative overflow-hidden">
+      <section className="pb-10 sm:pb-16 lg:pb-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `linear-gradient(rgba(0,255,136,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,136,0.15) 1px, transparent 1px)`,

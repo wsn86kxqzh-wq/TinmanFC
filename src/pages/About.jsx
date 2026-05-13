@@ -3,9 +3,9 @@ import { Heart, Shield, Zap, Users, MapPin, Coffee } from 'lucide-react'
 
 export default function About() {
   return (
-    <div className="min-h-screen pt-16 sm:pt-20 lg:pt-24">
+    <div className="min-h-screen pt-20 sm:pt-24 lg:pt-28">
       {/* Hero */}
-      <section className="pt-4 pb-12 sm:pt-6 sm:pb-20 lg:pt-8 lg:pb-24 relative overflow-hidden">
+      <section className="pb-12 sm:pb-20 lg:pb-24 relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `linear-gradient(rgba(0,255,136,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,136,0.15) 1px, transparent 1px)`,
