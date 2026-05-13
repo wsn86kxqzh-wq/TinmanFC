@@ -18,22 +18,22 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-bg-dark/90 backdrop-blur-md border-b border-border-subtle">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center font-display font-bold text-bg-dark text-sm">
+        <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
+          <Link to="/" className="flex items-center gap-2 lg:gap-3 group">
+            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-primary rounded-sm flex items-center justify-center font-display font-bold text-bg-dark text-sm lg:text-base">
               T
             </div>
-            <span className="font-display font-bold text-lg tracking-wider text-text-main group-hover:text-primary transition-colors">
+            <span className="font-display font-bold text-lg lg:text-2xl tracking-wider text-text-main group-hover:text-primary transition-colors">
               TINMAN<span className="text-primary">FC</span>
             </span>
           </Link>
 
-          <div className="hidden sm:flex items-center gap-1">
+          <div className="hidden sm:flex items-center gap-1 lg:gap-3">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-4 py-2 rounded text-sm font-medium transition-all duration-200 ${
+                className={`px-3 py-2 lg:px-5 lg:py-2.5 rounded text-sm lg:text-base font-medium transition-all duration-200 ${
                   location.pathname === link.path
                     ? 'text-primary bg-primary/10'
                     : 'text-text-muted hover:text-text-main hover:bg-bg-card'
