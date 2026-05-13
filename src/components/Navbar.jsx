@@ -28,7 +28,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden sm:flex items-center gap-1">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
@@ -45,7 +45,7 @@ export default function Navbar() {
           </div>
 
           <button
-            className="md:hidden text-text-muted hover:text-primary p-2"
+            className="sm:hidden text-text-muted hover:text-primary p-2"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -54,7 +54,7 @@ export default function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-bg-dark/95 backdrop-blur-md border-b border-border-subtle">
+        <div className="sm:hidden bg-bg-dark/95 backdrop-blur-md border-b border-border-subtle">
           <div className="px-4 py-3 space-y-1">
             {navLinks.map((link) => (
               <Link
