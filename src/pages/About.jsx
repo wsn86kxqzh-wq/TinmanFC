@@ -3,7 +3,7 @@ import { Heart, Shield, Zap, Users, MapPin, Coffee } from 'lucide-react'
 
 export default function About() {
   return (
-    <div className="min-h-screen pt-24 sm:pt-32 lg:pt-40">
+    <div className="min-h-screen pt-6 lg:pt-8">
       {/* Hero */}
       <section className="pb-12 sm:pb-20 lg:pb-24 relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">

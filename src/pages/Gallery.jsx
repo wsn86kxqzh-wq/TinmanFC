@@ -3,7 +3,7 @@ import { Camera, Calendar, Image } from 'lucide-react'
 
 export default function Gallery() {
   return (
-    <div className="min-h-screen pt-24 sm:pt-32 lg:pt-40">
+    <div className="min-h-screen pt-6 lg:pt-8">
       {/* Header */}
       <section className="pb-10 sm:pb-16 lg:pb-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
