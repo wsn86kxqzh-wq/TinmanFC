@@ -18,35 +18,35 @@ export default function Navbar() {
   return (
     <>
       {/* 桌面端：左侧侧边栏 */}
-      <aside className="hidden lg:flex flex-col fixed left-0 top-0 bottom-0 w-56 bg-bg-dark/95 backdrop-blur-md border-r border-border-subtle z-50">
-        <Link to="/" className="flex items-center gap-3 px-5 py-6 group border-b border-border-subtle">
-          <div className="w-10 h-10 bg-primary rounded flex items-center justify-center font-display font-bold text-bg-dark text-base">
+      <aside className="hidden lg:flex flex-col fixed left-0 top-0 bottom-0 w-64 bg-bg-dark border-r border-border-subtle z-50">
+        <Link to="/" className="flex items-center gap-3 px-6 py-7 group border-b border-border-subtle">
+          <div className="w-11 h-11 bg-primary rounded flex items-center justify-center font-display font-bold text-bg-dark text-lg">
             T
           </div>
-          <span className="font-display font-bold text-xl tracking-wider text-text-main group-hover:text-primary transition-colors">
+          <span className="font-display font-bold text-2xl tracking-wider text-text-main group-hover:text-primary transition-colors">
             TINMAN<span className="text-primary">FC</span>
           </span>
         </Link>
 
-        <nav className="flex-1 py-4 px-3 space-y-1">
+        <nav className="flex-1 py-5 px-4 space-y-1.5">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+              className={`flex items-center gap-3.5 px-5 py-3.5 rounded-lg text-base font-medium transition-all duration-200 ${
                 location.pathname === link.path
                   ? 'text-primary bg-primary/10'
                   : 'text-text-muted hover:text-text-main hover:bg-bg-card'
               }`}
             >
-              <link.icon size={18} />
+              <link.icon size={20} />
               {link.label}
             </Link>
           ))}
         </nav>
 
-        <div className="px-5 py-4 border-t border-border-subtle">
-          <p className="text-text-dim text-xs leading-relaxed">
+        <div className="px-6 py-5 border-t border-border-subtle">
+          <p className="text-text-dim text-sm leading-relaxed">
             成都铁人足球俱乐部<br />
             <span className="text-primary">钢铁意志 · 绿茵永燃</span>
           </p>

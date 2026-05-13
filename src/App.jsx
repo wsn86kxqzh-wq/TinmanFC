@@ -14,7 +14,7 @@ function App() {
       <div className="min-h-screen bg-bg-dark text-text-main">
         <Navbar />
         {/* 手机/平板：顶部导航栏占位；桌面：左侧侧边栏占位 */}
-        <div className="pt-14 lg:pt-0 lg:pl-56">
+        <div className="pt-14 lg:pt-0 lg:pl-64">
           <main className="min-h-screen flex flex-col">
             <div className="flex-1">
               <Routes>
