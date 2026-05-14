@@ -35,17 +35,21 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-9 h-9 bg-accent rounded-sm flex items-center justify-center font-display text-dark text-xl font-bold tracking-wider group-hover:scale-110 transition-transform">
-            T
-          </div>
-          <div>
-            <span className="font-display text-xl tracking-[0.15em] text-white">
-              TINMAN<span className="text-accent">FC</span>
-            </span>
-          </div>
-        </Link>
+        {/* Logo - 仅首页显示 */}
+        {pathname === '/' ? (
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-9 h-9 bg-accent rounded-sm flex items-center justify-center font-display text-dark text-xl font-bold tracking-wider group-hover:scale-110 transition-transform">
+              T
+            </div>
+            <div>
+              <span className="font-display text-xl tracking-[0.15em] text-white">
+                TINMAN<span className="text-accent">FC</span>
+              </span>
+            </div>
+          </Link>
+        ) : (
+          <div />
+        )}
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-1">
