@@ -1,126 +1,114 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
-import { Menu, X, Home, Users, Trophy, UserCircle, Camera, UserPlus, Flame } from 'lucide-react'
+import { Menu, X, Home, Users, Trophy, UserCircle, Camera, UserPlus } from 'lucide-react'
 
-const navLinks = [
-  { path: '/', label: '首页', icon: Home },
-  { path: '/about', label: '球队', icon: Users },
-  { path: '/matches', label: '赛事', icon: Trophy },
-  { path: '/roster', label: '阵容', icon: UserCircle },
-  { path: '/gallery', label: '相册', icon: Camera },
-  { path: '/join', label: '加入', icon: UserPlus },
+const links = [
+  { to: '/', label: '首页', icon: Home },
+  { to: '/about', label: '球队', icon: Users },
+  { to: '/matches', label: '赛事', icon: Trophy },
+  { to: '/roster', label: '阵容', icon: UserCircle },
+  { to: '/gallery', label: '相册', icon: Camera },
+  { to: '/join', label: '加入', icon: UserPlus },
 ]
 
 export default function Navbar() {
-  const location = useLocation()
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const { pathname } = useLocation()
+  const [open, setOpen] = useState(false)
 
   return (
     <>
-      {/* ===== 桌面端：左侧侧边栏 ===== */}
-      <aside className="hidden lg:flex flex-col fixed left-0 top-0 bottom-0 w-64 bg-bg-dark border-r border-border-subtle z-50">
+      {/* ===== 桌面端侧边栏 ===== */}
+      <aside className="hidden lg:flex flex-col fixed left-0 top-0 bottom-0 w-[260px] bg-bg border-r border-border z-50">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3.5 px-6 py-7 group border-b border-border-subtle hover:bg-bg-card/50 transition-colors">
-          <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center font-display font-black text-bg-dark text-xl shadow-[0_0_20px_rgba(0,255,136,0.3)] group-hover:shadow-[0_0_30px_rgba(0,255,136,0.5)] transition-shadow">
+        <Link to="/" className="flex items-center gap-3.5 px-6 h-[72px] border-b border-border shrink-0 group">
+          <div className="w-10 h-10 rounded-md bg-primary flex items-center justify-center font-display font-black text-bg text-lg">
             T
           </div>
           <div>
-            <span className="font-display font-black text-2xl tracking-wider text-text-main group-hover:text-primary transition-colors">
+            <div className="font-display font-black text-[22px] tracking-wider leading-none">
               TINMAN<span className="text-primary">FC</span>
-            </span>
-            <div className="text-text-dim text-[10px] tracking-[0.2em] font-display mt-0.5">CHENGDU</div>
+            </div>
+            <div className="text-text-dim text-[9px] tracking-[0.25em] font-display mt-0.5">CHENGDU · IRON SPIRIT</div>
           </div>
         </Link>
 
-        {/* Navigation */}
-        <nav className="flex-1 py-6 px-4 space-y-1">
-          {navLinks.map((link) => {
-            const isActive = location.pathname === link.path
+        {/* 导航链接 */}
+        <nav className="flex-1 py-6 px-4 space-y-0.5 overflow-y-auto no-scrollbar">
+          {links.map((link) => {
+            const active = pathname === link.to
             return (
               <Link
-                key={link.path}
-                to={link.path}
-                className={`relative flex items-center gap-3.5 px-4 py-3.5 rounded-lg text-[15px] font-medium transition-all duration-200 group ${
-                  isActive
-                    ? 'text-primary bg-primary/8'
-                    : 'text-text-muted hover:text-text-main hover:bg-bg-card/60'
-                }`}
+                key={link.to}
+                to={link.to}
+                className={`
+                  relative flex items-center gap-3 px-4 h-[44px] rounded-md text-[14px] font-medium transition-all duration-150
+                  ${active
+                    ? 'text-primary bg-primary/[0.08]'
+                    : 'text-text-secondary hover:text-text hover:bg-bg-elevated'}
+                `}
               >
-                {/* 活跃指示条 */}
-                {isActive && (
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-6 bg-primary rounded-r-full shadow-[0_0_8px_rgba(0,255,136,0.6)]" />
+                {active && (
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full bg-primary" />
                 )}
-                <link.icon size={20} className={isActive ? 'text-primary' : 'text-text-dim group-hover:text-text-muted'} />
+                <link.icon size={18} strokeWidth={active ? 2.2 : 1.8} />
                 {link.label}
-                {isActive && <Flame size={14} className="ml-auto text-primary animate-pulse-glow" />}
               </Link>
             )
           })}
         </nav>
 
-        {/* 底部签名 */}
-        <div className="px-6 py-5 border-t border-border-subtle">
-          <div className="flex items-center gap-2 mb-2">
-            <div className="w-2 h-2 bg-primary rounded-full animate-pulse-glow" />
-            <span className="text-primary text-xs font-display tracking-widest">IRON SPIRIT</span>
+        {/* 底部 */}
+        <div className="px-6 py-5 border-t border-border">
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="w-1.5 h-1.5 bg-primary rounded-full anim-pulse-dot" />
+            <span className="text-primary text-[10px] font-display tracking-[0.2em]">ACTIVE</span>
           </div>
-          <p className="text-text-dim text-xs leading-relaxed">
-            成都铁人足球俱乐部<br />
-            <span className="text-text-muted">钢铁意志 · 绿茵永燃</span>
+          <p className="text-text-dim text-[11px] leading-relaxed">
+            钢铁意志 · 绿茵永燃
           </p>
         </div>
       </aside>
 
-      {/* ===== 手机/平板端：顶部导航栏 ===== */}
-      <nav className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-bg-dark/95 backdrop-blur-md border-b border-border-subtle">
-        <div className="flex items-center justify-between h-14 px-4">
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 bg-primary rounded flex items-center justify-center font-display font-black text-bg-dark text-sm shadow-[0_0_12px_rgba(0,255,136,0.3)]">
+      {/* ===== 移动端顶栏 ===== */}
+      <header className="lg:hidden fixed top-0 left-0 right-0 z-50 h-[60px] bg-bg/95 backdrop-blur-lg border-b border-border">
+        <div className="flex items-center justify-between h-full px-4">
+          <Link to="/" className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded bg-primary flex items-center justify-center font-display font-black text-bg text-sm">
               T
             </div>
-            <div>
-              <span className="font-display font-black text-lg tracking-wider text-text-main group-hover:text-primary transition-colors">
-                TINMAN<span className="text-primary">FC</span>
-              </span>
-            </div>
+            <span className="font-display font-black text-[17px] tracking-wider">
+              TINMAN<span className="text-primary">FC</span>
+            </span>
           </Link>
-
-          <button
-            className="text-text-muted hover:text-primary p-2 rounded-lg hover:bg-bg-card/60 transition-all"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          <button onClick={() => setOpen(!open)} className="p-2 text-text-secondary hover:text-text">
+            {open ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
 
-        {mobileOpen && (
-          <div className="bg-bg-dark/98 backdrop-blur-md border-b border-border-subtle">
-            <div className="px-3 py-3 space-y-0.5">
-              {navLinks.map((link) => {
-                const isActive = location.pathname === link.path
+        {open && (
+          <div className="bg-bg border-b border-border">
+            <nav className="px-3 py-2 space-y-0.5">
+              {links.map((link) => {
+                const active = pathname === link.to
                 return (
                   <Link
-                    key={link.path}
-                    to={link.path}
-                    onClick={() => setMobileOpen(false)}
-                    className={`relative flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-                      isActive
-                        ? 'text-primary bg-primary/10'
-                        : 'text-text-muted hover:text-text-main hover:bg-bg-card/60'
-                    }`}
+                    key={link.to}
+                    to={link.to}
+                    onClick={() => setOpen(false)}
+                    className={`
+                      flex items-center gap-3 px-4 h-[44px] rounded-md text-sm font-medium transition-all
+                      ${active ? 'text-primary bg-primary/[0.08]' : 'text-text-secondary hover:text-text hover:bg-bg-elevated'}
+                    `}
                   >
-                    {isActive && (
-                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-primary rounded-r-full" />
-                    )}
-                    <link.icon size={18} />
+                    <link.icon size={17} />
                     {link.label}
                   </Link>
                 )
               })}
-            </div>
+            </nav>
           </div>
         )}
-      </nav>
+      </header>
     </>
   )
 }
