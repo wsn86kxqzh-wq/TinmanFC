@@ -133,10 +133,10 @@ export default function Matches() {
           {/* Table header */}
           <div className="hidden md:grid grid-cols-12 gap-4 text-muted text-[10px] tracking-[0.3em] py-3 border-b border-border px-3 uppercase">
             <div className="col-span-2">{t.matches.tableHeaders.date}</div>
+            <div className="col-span-1">{t.matches.tableHeaders.time}</div>
             <div className="col-span-3">{t.matches.tableHeaders.opponent}</div>
-            <div className="col-span-2">{t.matches.tableHeaders.competition}</div>
+            <div className="col-span-2">{t.matches.tableHeaders.venue}</div>
             <div className="col-span-2 text-center">{t.matches.tableHeaders.score}</div>
-            <div className="col-span-1 text-center">{t.matches.tableHeaders.homeAway}</div>
             <div className="col-span-2 text-center">{t.matches.tableHeaders.result}</div>
           </div>
 
@@ -147,17 +147,17 @@ export default function Matches() {
                 <div className="md:col-span-2 text-muted text-sm">
                   {match.date}
                 </div>
+                <div className="md:col-span-1 text-muted text-sm">
+                  {match.time}
+                </div>
                 <div className="md:col-span-3 text-white font-medium group-hover:text-accent transition-colors duration-300">
                   {lang === 'zh' ? match.opponent : match.opponentEn}
                 </div>
                 <div className="md:col-span-2 text-muted text-sm">
-                  {lang === 'zh' ? match.competition : match.competitionEn}
+                  {lang === 'zh' ? match.venue : match.venueEn}
                 </div>
                 <div className="md:col-span-2 font-display text-xl text-white text-center">
                   {match.score}
-                </div>
-                <div className="md:col-span-1 text-center text-muted text-sm">
-                  {match.home ? t.matches.home : t.matches.away}
                 </div>
                 <div className="md:col-span-2 text-center">
                   <span
@@ -181,9 +181,6 @@ export default function Matches() {
                     <span className="text-white font-medium group-hover:text-accent transition-colors duration-300">
                       {lang === 'zh' ? match.opponent : match.opponentEn}
                     </span>
-                    <span className="text-muted text-[10px] ml-2">
-                      {match.home ? t.matches.home : t.matches.away}
-                    </span>
                   </div>
                   <div className="flex items-center gap-3">
                     <span className="font-display text-lg text-white">
@@ -204,9 +201,11 @@ export default function Matches() {
                 </div>
                 <div className="flex items-center justify-between mt-1.5">
                   <span className="text-muted text-[10px]">
-                    {lang === 'zh' ? match.competition : match.competitionEn}
+                    {match.date} · {match.time}
                   </span>
-                  <span className="text-muted text-[10px]">{match.date}</span>
+                  <span className="text-muted text-[10px]">
+                    {lang === 'zh' ? match.venue : match.venueEn}
+                  </span>
                 </div>
               </div>
             </RevealSection>

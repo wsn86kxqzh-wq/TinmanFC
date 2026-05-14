@@ -94,10 +94,10 @@ export default {
     history: '战绩记录',
     tableHeaders: {
       date: '日期',
+      time: '时间',
       opponent: '对手',
-      competition: '赛事',
+      venue: '地点',
       score: '比分',
-      homeAway: '主/客',
       result: '结果',
     },
     home: '主场',

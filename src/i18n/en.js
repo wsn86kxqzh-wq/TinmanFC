@@ -94,10 +94,10 @@ export default {
     history: 'Match History',
     tableHeaders: {
       date: 'Date',
+      time: 'Time',
       opponent: 'Opponent',
-      competition: 'Competition',
+      venue: 'Venue',
       score: 'Score',
-      homeAway: 'H/A',
       result: 'Result',
     },
     home: 'Home',
