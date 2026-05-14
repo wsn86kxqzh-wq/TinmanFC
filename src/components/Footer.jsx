@@ -13,11 +13,11 @@ const footerLinks = [
 export default function Footer() {
   return (
     <footer className="border-t border-border bg-dark">
-      <div className="max-w-7xl mx-auto px-6 py-12 md:py-16">
-        <div className="grid md:grid-cols-3 gap-10">
+      <div className="max-w-7xl mx-auto px-6 py-14 md:py-20">
+        <div className="grid md:grid-cols-3 gap-12">
           {/* 品牌 */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3 mb-5">
               <div className="w-8 h-8 bg-accent rounded-sm flex items-center justify-center font-display text-dark text-lg font-bold">
                 T
               </div>
@@ -28,19 +28,22 @@ export default function Footer() {
             <p className="text-muted-2 text-sm leading-relaxed">
               {teamInfo.slogan}
             </p>
+            <p className="text-muted/40 text-xs mt-4 tracking-wider">
+              {teamInfo.city} · Est. {teamInfo.founded}
+            </p>
           </div>
 
           {/* 链接 */}
           <div>
-            <h4 className="text-white text-sm font-medium tracking-wider mb-4">
-              导航
+            <h4 className="text-white text-xs font-medium tracking-[0.3em] mb-5 uppercase">
+              Navigation
             </h4>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-3">
               {footerLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className="text-muted-2 text-sm hover:text-accent transition-colors"
+                  className="text-muted-2 text-sm link-underline hover:text-accent transition-colors duration-300 w-fit"
                 >
                   {link.label}
                 </Link>
@@ -50,22 +53,27 @@ export default function Footer() {
 
           {/* 信息 */}
           <div>
-            <h4 className="text-white text-sm font-medium tracking-wider mb-4">
-              信息
+            <h4 className="text-white text-xs font-medium tracking-[0.3em] mb-5 uppercase">
+              Contact
             </h4>
-            <div className="space-y-2 text-muted-2 text-sm">
-              <p>{teamInfo.city} · {teamInfo.nameCn}</p>
-              <p>成立 {teamInfo.founded}</p>
-              <p className="text-muted text-xs mt-3">tinmanfc.top</p>
+            <div className="space-y-3 text-muted-2 text-sm">
+              <p>{teamInfo.nameCn}</p>
+              <p>成都足球公园</p>
+              <a
+                href="mailto:hello@tinmanfc.top"
+                className="text-muted-2 hover:text-accent transition-colors duration-300 link-underline w-fit"
+              >
+                hello@tinmanfc.top
+              </a>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-border mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-muted text-xs">
-            © {new Date().getFullYear()} TinmanFC. All rights reserved.
+        <div className="border-t border-border mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-muted/60 text-xs tracking-wider">
+            © {new Date().getFullYear()} TinmanFC
           </p>
-          <p className="text-muted/50 text-xs">
+          <p className="text-muted/30 text-xs tracking-widest uppercase">
             Built with iron will
           </p>
         </div>
