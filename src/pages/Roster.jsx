@@ -1,126 +1,147 @@
-import { players, positionMap } from '../data/teamData'
 import { useState } from 'react'
-import { User, Filter } from 'lucide-react'
+import { players, positionMap } from '../data/teamData'
 
-const posGroups = [
-  { label: '全部', keys: null },
-  { label: '门将', keys: ['GK'] },
-  { label: '后卫', keys: ['CB', 'LB', 'RB'] },
-  { label: '中场', keys: ['CDM', 'CM', 'CAM'] },
-  { label: '前锋', keys: ['LW', 'RW', 'ST'] },
+const positions = [
+  { key: 'all', label: '全部' },
+  { key: 'GK', label: '门将' },
+  { key: 'DEF', label: '后卫', positions: ['CB', 'LB', 'RB'] },
+  { key: 'MID', label: '中场', positions: ['CDM', 'CM', 'CAM'] },
+  { key: 'FWD', label: '前锋', positions: ['LW', 'RW', 'ST'] },
 ]
 
-const posColor = {
-  GK: { bg: 'bg-gold/10', text: 'text-gold', border: 'border-gold/15' },
-  CB: { bg: 'bg-blue/10', text: 'text-blue', border: 'border-blue/15' },
-  LB: { bg: 'bg-blue/10', text: 'text-blue', border: 'border-blue/15' },
-  RB: { bg: 'bg-blue/10', text: 'text-blue', border: 'border-blue/15' },
-  CDM: { bg: 'bg-primary/10', text: 'text-primary', border: 'border-primary/15' },
-  CM: { bg: 'bg-primary/10', text: 'text-primary', border: 'border-primary/15' },
-  CAM: { bg: 'bg-primary/10', text: 'text-primary', border: 'border-primary/15' },
-  LW: { bg: 'bg-red/10', text: 'text-red', border: 'border-red/15' },
-  RW: { bg: 'bg-red/10', text: 'text-red', border: 'border-red/15' },
-  ST: { bg: 'bg-red/10', text: 'text-red', border: 'border-red/15' },
+const positionColors = {
+  GK: 'bg-accent/10 text-accent border-accent/20',
+  CB: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  LB: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  RB: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  CDM: 'bg-gold/10 text-gold border-gold/20',
+  CM: 'bg-gold/10 text-gold border-gold/20',
+  CAM: 'bg-gold/10 text-gold border-gold/20',
+  LW: 'bg-red/10 text-red border-red/20',
+  RW: 'bg-red/10 text-red border-red/20',
+  ST: 'bg-red/10 text-red border-red/20',
 }
 
 export default function Roster() {
-  const [filter, setFilter] = useState('全部')
+  const [filter, setFilter] = useState('all')
 
-  const filtered = filter === '全部'
-    ? players
-    : players.filter(p => posGroups.find(g => g.label === filter)?.keys?.includes(p.position))
+  const filtered =
+    filter === 'all'
+      ? players
+      : players.filter((p) => {
+          const group = positions.find((pos) => pos.key === filter)
+          return group.positions ? group.positions.includes(p.position) : p.position === filter
+        })
 
   return (
     <div>
-      {/* ===== HERO ===== */}
-      <section className="py-20 lg:py-32">
-        <div className="max-w-[800px] mx-auto text-center px-6">
-          <span className="text-blue font-display text-[11px] tracking-[0.3em]">ROSTER</span>
-          <h1 className="font-display font-black text-4xl lg:text-7xl mt-3 mb-4">
-            球员<span className="text-primary">阵容</span>
+      {/* Hero */}
+      <section className="pt-32 pb-16 md:pt-40 md:pb-24">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-accent text-xs tracking-[0.3em] font-medium mb-4">
+            THE SQUAD
+          </p>
+          <h1 className="font-display text-6xl md:text-8xl text-white tracking-wide">
+            球员阵容
           </h1>
-          <p className="text-text-secondary text-sm lg:text-lg">每一位都是铁人</p>
         </div>
       </section>
 
-      {/* ===== 筛选 ===== */}
-      <section className="border-y border-border bg-bg-card">
-        <div className="max-w-[1000px] mx-auto px-6 lg:px-10 py-3 flex items-center gap-2 overflow-x-auto no-scrollbar">
-          <Filter size={13} className="text-text-dim shrink-0" />
-          {posGroups.map(g => (
-            <button
-              key={g.label}
-              onClick={() => setFilter(g.label)}
-              className={`shrink-0 px-3.5 py-1.5 rounded-md text-xs font-medium transition-all ${
-                filter === g.label
-                  ? 'bg-primary text-bg'
-                  : 'text-text-secondary hover:text-text bg-bg hover:bg-bg-elevated border border-border'
-              }`}
-            >
-              {g.label}
-            </button>
-          ))}
+      {/* 筛选器 */}
+      <section className="border-y border-border bg-dark-2">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex gap-1 overflow-x-auto py-1">
+            {positions.map((pos) => (
+              <button
+                key={pos.key}
+                onClick={() => setFilter(pos.key)}
+                className={`px-5 py-3 text-sm font-medium tracking-wide transition-colors whitespace-nowrap ${
+                  filter === pos.key
+                    ? 'text-accent border-b-2 border-accent'
+                    : 'text-muted-2 hover:text-white'
+                }`}
+              >
+                {pos.label}
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ===== 球员网格 ===== */}
-      <section className="py-16 lg:py-24">
-        <div className="max-w-[1000px] mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
-            {filtered.map(player => {
-              const pc = posColor[player.position] || { bg: 'bg-bg-card', text: 'text-text-dim', border: 'border-border' }
-              return (
-                <div key={player.id} className={`border ${pc.border} rounded-lg p-5 bg-bg-card relative overflow-hidden hover:border-primary/25 transition-colors group`}>
-                  {/* 号码水印 */}
-                  <div className="absolute -right-3 -top-3 font-display font-black text-[5rem] text-primary/[0.025] leading-none select-none group-hover:text-primary/[0.05] transition-colors">
-                    {player.number}
-                  </div>
+      {/* 球员卡片 */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {filtered.map((player, i) => (
+              <div
+                key={player.id}
+                className="border border-border p-6 hover:border-accent/20 transition-colors relative overflow-hidden animate-slide-up"
+                style={{ animationDelay: `${i * 0.05}s` }}
+              >
+                {/* 号码水印 */}
+                <span className="absolute -right-2 -top-4 font-display text-[7rem] leading-none text-white/[0.03]">
+                  {player.number}
+                </span>
 
-                  <div className="relative">
-                    {/* 头部 */}
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className={`w-10 h-10 ${pc.bg} rounded-lg flex items-center justify-center`}>
-                        <User className={pc.text} size={18} />
+                <div className="relative">
+                  {/* 头部 */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`w-10 h-10 rounded-sm flex items-center justify-center font-display text-lg border ${positionColors[player.position]}`}
+                      >
+                        {player.number}
                       </div>
                       <div>
-                        <div className="font-display font-bold text-base">{player.name}</div>
-                        <div className="flex items-center gap-1.5 text-[11px]">
-                          <span className="text-primary font-display font-bold">#{player.number}</span>
-                          <span className={`${pc.bg} ${pc.text} px-1.5 py-0.5 rounded text-[10px] font-medium`}>
-                            {positionMap[player.position]}
-                          </span>
-                        </div>
+                        <h3 className="text-white font-bold text-lg">
+                          {player.name}
+                        </h3>
+                        <p className="text-muted text-xs">
+                          {positionMap[player.position]}
+                        </p>
                       </div>
                     </div>
+                  </div>
 
-                    {/* 绰号 */}
-                    <div className="text-gold text-xs font-medium mb-0.5">"{player.nickname}"</div>
-                    <div className="text-text-dim text-[11px] italic mb-4 line-clamp-1">"{player.motto}"</div>
+                  {/* 昵称 */}
+                  <p className="text-accent text-sm font-medium mb-1">
+                    「{player.nickname}」
+                  </p>
+                  <p className="text-muted-2 text-xs italic mb-5">
+                    {player.motto}
+                  </p>
 
-                    {/* 数据 */}
-                    <div className="grid grid-cols-3 gap-2 pt-3 border-t border-border text-center">
-                      <div>
-                        <div className="font-display font-bold text-lg text-primary">{player.goals}</div>
-                        <div className="text-text-dim text-[10px]">进球</div>
+                  {/* 数据 */}
+                  <div className="grid grid-cols-3 gap-3 pt-4 border-t border-border">
+                    <div>
+                      <div className="font-display text-xl text-accent">
+                        {player.goals}
                       </div>
-                      <div>
-                        <div className="font-display font-bold text-lg text-blue">{player.assists}</div>
-                        <div className="text-text-dim text-[10px]">助攻</div>
+                      <div className="text-muted text-[10px] tracking-wider">
+                        进球
                       </div>
-                      <div>
-                        <div className="font-display font-bold text-lg text-gold">{player.matches}</div>
-                        <div className="text-text-dim text-[10px]">出场</div>
+                    </div>
+                    <div>
+                      <div className="font-display text-xl text-white">
+                        {player.assists}
+                      </div>
+                      <div className="text-muted text-[10px] tracking-wider">
+                        助攻
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-display text-xl text-white">
+                        {player.matches}
+                      </div>
+                      <div className="text-muted text-[10px] tracking-wider">
+                        出场
                       </div>
                     </div>
                   </div>
                 </div>
-              )
-            })}
+              </div>
+            ))}
           </div>
-
-          {filtered.length === 0 && (
-            <div className="text-center py-16 text-text-dim text-sm">该位置暂无球员</div>
-          )}
         </div>
       </section>
     </div>

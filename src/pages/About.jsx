@@ -1,125 +1,170 @@
+import { Shield, Heart, Flame, Users } from 'lucide-react'
 import { teamInfo } from '../data/teamData'
-import { Heart, Shield, Zap, Users, MapPin, Coffee } from 'lucide-react'
 
 const values = [
-  { icon: Heart, title: '热爱至上', desc: '胜利是奖励，热爱是动力。', color: 'text-red' },
-  { icon: Shield, title: '钢铁意志', desc: '不惧强敌，永不放弃。', color: 'text-primary' },
-  { icon: Zap, title: '全力以赴', desc: '每次训练和比赛都倾尽全力。', color: 'text-gold' },
-  { icon: Users, title: '兄弟情谊', desc: '球场上的战友，生活中的兄弟。', color: 'text-blue' },
-  { icon: MapPin, title: '成都骄傲', desc: '生于成都，踢在成都。', color: 'text-primary' },
-  { icon: Coffee, title: '快乐足球', desc: '赢了庆祝，输了约火锅。', color: 'text-gold' },
+  { icon: Flame, title: '热血', desc: '每一场比赛都全力以赴，不留遗憾' },
+  { icon: Shield, title: '铁骨', desc: '硬朗的球风，钢铁般的防守意志' },
+  { icon: Users, title: '兄弟', desc: '场上战友，场下兄弟，永不放弃彼此' },
+  { icon: Heart, title: '热爱', desc: '不为名利，只为对足球最纯粹的热爱' },
 ]
 
-const milestones = [
-  { year: teamInfo.founded, title: '球队成立', desc: '三五球友的周末聚会' },
-  { year: '2024', title: '正式建制', desc: '确定队名、队徽和训练时间' },
-  { year: '2025', title: '参加联赛', desc: '首次征战成都业余联赛' },
-  { year: '2026', title: '继续前行', desc: '20+球员，每周固定训练比赛' },
+const timeline = [
+  { year: '2023', event: '球队成立', desc: '几个热爱足球的成都兄弟，在球场上相识，决定组建自己的球队' },
+  { year: '2023', event: '首场正式比赛', desc: '以3:1拿下队史首胜，铁人精神从此扎根' },
+  { year: '2024', event: '加入成都业余联赛', desc: '正式踏入联赛体系，开始系统化训练和比赛' },
+  { year: '2025', event: '赛季最佳战绩', desc: '联赛第三名，队史最长五连胜' },
+  { year: '2026', event: '新征程', desc: '阵容扩充至22人，剑指联赛冠军' },
 ]
 
 export default function About() {
   return (
     <div>
-      {/* ===== HERO ===== */}
-      <section className="py-20 lg:py-32">
-        <div className="max-w-[800px] mx-auto text-center px-6">
-          <span className="text-primary font-display text-[11px] tracking-[0.3em]">ABOUT US</span>
-          <h1 className="font-display font-black text-4xl lg:text-7xl mt-3 mb-4">
-            关于 <span className="text-primary">TinmanFC</span>
+      {/* Hero */}
+      <section className="pt-32 pb-20 md:pt-40 md:pb-28">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-accent text-xs tracking-[0.3em] font-medium mb-4">
+            ABOUT US
+          </p>
+          <h1 className="font-display text-6xl md:text-8xl text-white tracking-wide">
+            铁人之魂
           </h1>
-          <p className="text-text-secondary text-sm lg:text-lg leading-relaxed">{teamInfo.description}</p>
+          <p className="text-muted-2 text-lg md:text-xl mt-6 max-w-2xl leading-relaxed">
+            {teamInfo.description}
+          </p>
         </div>
       </section>
 
-      {/* ===== 数据 ===== */}
-      <section className="border-y border-border bg-bg-card">
-        <div className="max-w-[800px] mx-auto grid grid-cols-2 lg:grid-cols-4">
+      {/* 核心数据 */}
+      <section className="border-y border-border bg-dark-2">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4">
           {[
-            { value: teamInfo.founded, label: '成立' },
-            { value: teamInfo.playerCount + '+', label: '球员' },
-            { value: teamInfo.matchCount, label: '场次' },
-            { value: teamInfo.goalsTotal, label: '进球' },
+            { value: teamInfo.founded, label: '成立年份' },
+            { value: teamInfo.playerCount, label: '注册球员' },
+            { value: teamInfo.matchCount, label: '历史比赛' },
+            { value: teamInfo.winRate, label: '胜率' },
           ].map((s, i) => (
-            <div key={i} className="py-7 text-center border-border last:border-r-0 lg:border-r">
-              <div className="font-display font-black text-2xl lg:text-4xl text-text mb-0.5">{s.value}</div>
-              <div className="text-text-dim text-[10px] tracking-[0.1em] uppercase">{s.label}</div>
+            <div
+              key={i}
+              className={`py-10 px-6 text-center ${
+                i > 0 ? 'border-l border-border' : ''
+              } ${i >= 2 ? 'border-t md:border-t-0' : ''}`}
+            >
+              <div className="font-display text-4xl md:text-5xl text-white">
+                {s.value}
+              </div>
+              <div className="text-muted text-xs tracking-[0.3em] mt-2">
+                {s.label}
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ===== 故事 + 时间线 ===== */}
-      <section className="py-16 lg:py-24">
-        <div className="max-w-[1000px] mx-auto px-6 lg:px-10">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
-            {/* 故事 */}
-            <div>
-              <h2 className="font-display font-bold text-xl lg:text-2xl mb-5">我们的故事</h2>
-              <div className="space-y-4 text-text-secondary text-sm lg:text-[15px] leading-[1.8]">
-                <p>TinmanFC 诞生于 {teamInfo.founded} 年的成都。一群在球场上认识的朋友，因为对足球的共同热爱走到了一起。</p>
-                <p>"铁人"这个名字，不是因为我们有多强壮，而是因为我们相信——足球需要的不仅仅是技术，更是一颗永不放弃的心。</p>
-                <p>每周三晚上训练，周六下午比赛，赛后一顿火锅——这就是 TinmanFC 的日常。</p>
-              </div>
-            </div>
-
-            {/* 时间线 */}
-            <div>
-              <h2 className="font-display font-bold text-xl lg:text-2xl mb-5">成长历程</h2>
-              <div className="space-y-0">
-                {milestones.map((m, i) => (
-                  <div key={i} className="flex gap-4 pb-6 last:pb-0">
-                    <div className="flex flex-col items-center">
-                      <div className="w-2.5 h-2.5 bg-primary rounded-full mt-1 shrink-0" />
-                      {i < milestones.length - 1 && <div className="w-px flex-1 bg-border mt-1" />}
-                    </div>
-                    <div className="pb-2">
-                      <div className="text-primary font-display font-bold text-sm">{m.year}</div>
-                      <div className="font-medium text-[15px] mt-0.5">{m.title}</div>
-                      <div className="text-text-dim text-sm mt-0.5">{m.desc}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== 信条 ===== */}
-      <section className="py-16 lg:py-24 border-y border-border bg-bg-card">
-        <div className="max-w-[1000px] mx-auto px-6 lg:px-10">
-          <h2 className="font-display font-bold text-xl lg:text-2xl mb-8 text-center">我们的信条</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
-            {values.map((v, i) => (
-              <div key={i} className="border border-border rounded-lg p-5 lg:p-6 hover:border-primary/20 transition-colors">
-                <v.icon className={`${v.color} mb-3`} size={22} />
-                <h3 className="font-medium text-sm lg:text-base mb-1">{v.title}</h3>
-                <p className="text-text-dim text-xs lg:text-[13px] leading-relaxed">{v.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== 成都 ===== */}
-      <section className="py-16 lg:py-24">
-        <div className="max-w-[600px] mx-auto text-center px-6">
-          <h2 className="font-display font-bold text-xl lg:text-2xl mb-3">
-            <span className="text-primary">成都</span>，我们的主场
+      {/* 球队价值观 */}
+      <section className="py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-accent text-xs tracking-[0.3em] font-medium mb-2">
+            OUR VALUES
+          </p>
+          <h2 className="font-display text-4xl md:text-5xl text-white tracking-wide mb-12">
+            球队精神
           </h2>
-          <p className="text-text-secondary text-sm mb-8">最辣的火锅，最悠闲的茶馆，也有一群最热血的足球人。</p>
-          <div className="grid grid-cols-3 gap-3">
-            {[
-              { label: '训练', info: '每周三 20:00', sub: '成都足球公园' },
-              { label: '比赛', info: '每周六 15:00', sub: '各场地轮转' },
-              { label: '团建', info: '赛后火锅', sub: '老地方见' },
-            ].map((item, i) => (
-              <div key={i} className="border border-border rounded-lg py-5 px-2 text-center">
-                <div className="text-primary font-display font-bold text-sm lg:text-base mb-0.5">{item.label}</div>
-                <div className="text-text-secondary text-xs">{item.info}</div>
-                <div className="text-text-dim text-[10px]">{item.sub}</div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {values.map((v, i) => (
+              <div
+                key={i}
+                className="border border-border p-8 hover:border-accent/20 transition-colors animate-slide-up"
+                style={{ animationDelay: `${i * 0.1}s` }}
+              >
+                <v.icon size={28} className="text-accent mb-5" strokeWidth={1.5} />
+                <h3 className="font-display text-2xl text-white tracking-wide mb-2">
+                  {v.title}
+                </h3>
+                <p className="text-muted-2 text-sm leading-relaxed">{v.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 时间线 */}
+      <section className="py-20 md:py-28 bg-dark-2">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-accent text-xs tracking-[0.3em] font-medium mb-2">
+            OUR STORY
+          </p>
+          <h2 className="font-display text-4xl md:text-5xl text-white tracking-wide mb-14">
+            成长之路
+          </h2>
+          <div className="relative">
+            {/* 竖线 */}
+            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-px" />
+            {timeline.map((item, i) => (
+              <div
+                key={i}
+                className={`relative flex items-start mb-12 last:mb-0 ${
+                  i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                }`}
+              >
+                {/* 圆点 */}
+                <div className="absolute left-4 md:left-1/2 w-3 h-3 bg-accent rounded-full -translate-x-1.5 md:-translate-x-1.5 mt-1.5 z-10" />
+
+                {/* 内容 */}
+                <div
+                  className={`ml-12 md:ml-0 md:w-[45%] ${
+                    i % 2 === 0
+                      ? 'md:pr-12 md:text-right'
+                      : 'md:pl-12 md:text-left'
+                  }`}
+                >
+                  <span className="font-display text-3xl text-accent">
+                    {item.year}
+                  </span>
+                  <h3 className="text-white font-medium text-lg mt-1">
+                    {item.event}
+                  </h3>
+                  <p className="text-muted-2 text-sm mt-2 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 成都 */}
+      <section className="py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+              <p className="text-accent text-xs tracking-[0.3em] font-medium mb-2">
+                OUR CITY
+              </p>
+              <h2 className="font-display text-5xl md:text-6xl text-white tracking-wide">
+                成都
+              </h2>
+              <p className="text-muted-2 mt-6 leading-relaxed">
+                在这座来了就不想走的城市，足球是另一种生活方式。从锦江边到天府大道，从火锅桌到绿茵场——铁人FC在成都的每一个角落奔跑，把这座城市的热情和坚韧写在每一场比赛里。
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { label: '训练基地', value: '成都足球公园' },
+                { label: '主场', value: '高新区体育中心' },
+                { label: '常规训练', value: '每周三 / 周六' },
+                { label: '参赛联赛', value: '成都业余联赛' },
+              ].map((item, i) => (
+                <div key={i} className="bg-dark-2 border border-border p-5">
+                  <div className="text-muted text-xs tracking-wider mb-1">
+                    {item.label}
+                  </div>
+                  <div className="text-white text-sm font-medium">
+                    {item.value}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

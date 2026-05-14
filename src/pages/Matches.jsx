@@ -1,70 +1,107 @@
+import { ArrowRight } from 'lucide-react'
 import { matches, upcomingMatches } from '../data/teamData'
-import { MapPin, Calendar, Clock } from 'lucide-react'
+
+const totalMatches = matches.length
+const wins = matches.filter((m) => m.result === 'win').length
+const draws = matches.filter((m) => m.result === 'draw').length
+const losses = matches.filter((m) => m.result === 'lose').length
+const totalGoals = matches.reduce((sum, m) => {
+  const ours = m.score.split(':')[0]
+  return sum + parseInt(ours)
+}, 0)
 
 export default function Matches() {
-  const wins = matches.filter(m => m.result === 'win').length
-  const draws = matches.filter(m => m.result === 'draw').length
-  const losses = matches.filter(m => m.result === 'lose').length
-  const total = matches.length
-  const winPct = Math.round(wins / total * 100)
-
   return (
     <div>
-      {/* ===== HERO ===== */}
-      <section className="py-20 lg:py-32">
-        <div className="max-w-[800px] mx-auto text-center px-6">
-          <span className="text-gold font-display text-[11px] tracking-[0.3em]">MATCHES</span>
-          <h1 className="font-display font-black text-4xl lg:text-7xl mt-3 mb-4">
-            赛事与<span className="text-primary">战绩</span>
+      {/* Hero */}
+      <section className="pt-32 pb-16 md:pt-40 md:pb-24">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-accent text-xs tracking-[0.3em] font-medium mb-4">
+            MATCH CENTER
+          </p>
+          <h1 className="font-display text-6xl md:text-8xl text-white tracking-wide">
+            赛事中心
           </h1>
-          <p className="text-text-secondary text-sm lg:text-lg">每一场比赛，都是一次战斗</p>
         </div>
       </section>
 
-      {/* ===== 统计 ===== */}
-      <section className="border-y border-border bg-bg-card">
-        <div className="max-w-[800px] mx-auto">
-          <div className="grid grid-cols-5">
-            {[
-              { value: total, label: '总场次' },
-              { value: wins, label: '胜', c: 'text-primary' },
-              { value: draws, label: '平', c: 'text-gold' },
-              { value: losses, label: '负', c: 'text-red' },
-              { value: winPct + '%', label: '胜率', c: 'text-blue' },
-            ].map((s, i) => (
-              <div key={i} className="py-6 text-center border-border last:border-r-0 border-r">
-                <div className={`font-display font-black text-2xl lg:text-3xl ${s.c || 'text-text'}`}>{s.value}</div>
-                <div className="text-text-dim text-[10px] tracking-[0.1em] uppercase mt-0.5">{s.label}</div>
+      {/* 统计数据条 */}
+      <section className="border-y border-border bg-dark-2">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5">
+          {[
+            { value: totalMatches, label: '总场次' },
+            { value: wins, label: '胜' },
+            { value: draws, label: '平' },
+            { value: losses, label: '负' },
+            { value: totalGoals, label: '进球' },
+          ].map((s, i) => (
+            <div
+              key={i}
+              className={`py-8 px-6 text-center ${
+                i > 0 ? 'border-l border-border' : ''
+              }`}
+            >
+              <div
+                className={`font-display text-4xl md:text-5xl ${
+                  i === 1
+                    ? 'text-accent'
+                    : i === 3
+                    ? 'text-red'
+                    : i === 2
+                    ? 'text-gold'
+                    : 'text-white'
+                }`}
+              >
+                {s.value}
               </div>
-            ))}
-          </div>
-          {/* 进度条 */}
-          <div className="h-[3px] bg-bg">
-            <div className="h-full bg-gradient-to-r from-primary to-blue" style={{ width: `${winPct}%` }} />
-          </div>
+              <div className="text-muted text-xs tracking-[0.3em] mt-1">
+                {s.label}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* ===== 即将开赛 ===== */}
-      <section className="py-16 lg:py-20">
-        <div className="max-w-[800px] mx-auto px-6 lg:px-10">
-          <h2 className="font-display font-bold text-lg lg:text-xl mb-6 flex items-center gap-2">
-            <span className="w-2 h-2 bg-blue rounded-full" />
+      {/* 即将开赛 */}
+      <section className="py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-accent text-xs tracking-[0.3em] font-medium mb-2">
+            UPCOMING FIXTURES
+          </p>
+          <h2 className="font-display text-4xl md:text-5xl text-white tracking-wide mb-10">
             即将开赛
           </h2>
-          <div className="space-y-2.5">
-            {upcomingMatches.map(m => (
-              <div key={m.id} className="border border-border rounded-lg p-4 hover:border-blue/20 transition-colors">
-                <div className="flex items-center gap-3 text-text-dim text-[11px] mb-2">
-                  <Calendar size={11} /><span>{m.date}</span>
-                  <Clock size={11} /><span>{m.time}</span>
-                  <span className={`ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded ${m.home ? 'bg-primary/10 text-primary' : 'bg-blue/10 text-blue'}`}>
-                    {m.home ? '主场' : '客场'}
-                  </span>
-                </div>
-                <div className="font-medium text-sm">TinmanFC <span className="text-primary font-display text-xs">VS</span> {m.opponent}</div>
-                <div className="flex items-center gap-1.5 text-text-dim text-[11px] mt-1">
-                  <MapPin size={11} />{m.venue}
+
+          <div className="space-y-4">
+            {upcomingMatches.map((match, i) => (
+              <div
+                key={match.id}
+                className="border border-border p-6 md:p-8 hover:border-accent/30 transition-colors animate-slide-up"
+                style={{ animationDelay: `${i * 0.1}s` }}
+              >
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <div>
+                    <div className="text-muted text-sm mb-1">
+                      {match.date} · {match.time}
+                    </div>
+                    <h3 className="font-display text-3xl md:text-4xl text-white tracking-wide">
+                      vs {match.opponent}
+                    </h3>
+                  </div>
+                  <div className="flex items-center gap-6">
+                    <div className="text-right">
+                      <div className="text-muted-2 text-sm">
+                        {match.venue}
+                      </div>
+                      <span className="inline-block mt-1 text-xs text-accent/70 bg-accent/5 px-2 py-0.5">
+                        {match.competition}
+                      </span>
+                    </div>
+                    <ArrowRight
+                      size={20}
+                      className="text-muted hidden md:block"
+                    />
+                  </div>
                 </div>
               </div>
             ))}
@@ -72,39 +109,65 @@ export default function Matches() {
         </div>
       </section>
 
-      {/* ===== 比赛记录 ===== */}
-      <section className="py-16 lg:py-20 border-t border-border">
-        <div className="max-w-[800px] mx-auto px-6 lg:px-10">
-          <h2 className="font-display font-bold text-lg lg:text-xl mb-6 flex items-center gap-2">
-            <span className="w-2 h-2 bg-gold rounded-full" />
-            比赛记录
+      {/* 比赛历史 */}
+      <section className="py-20 md:py-28 bg-dark-2">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-accent text-xs tracking-[0.3em] font-medium mb-2">
+            MATCH HISTORY
+          </p>
+          <h2 className="font-display text-4xl md:text-5xl text-white tracking-wide mb-10">
+            战绩记录
           </h2>
 
           {/* 表头 */}
-          <div className="hidden lg:grid grid-cols-[80px_1fr_100px_60px] gap-3 text-text-dim text-[11px] font-display tracking-wider uppercase pb-2 border-b border-border">
-            <span>日期</span><span>对阵</span><span className="text-center">比分</span><span className="text-right">结果</span>
+          <div className="hidden md:grid grid-cols-12 gap-4 text-muted text-xs tracking-wider py-3 border-b border-border px-2">
+            <div className="col-span-2">日期</div>
+            <div className="col-span-3">对手</div>
+            <div className="col-span-2">赛事</div>
+            <div className="col-span-2 text-center">比分</div>
+            <div className="col-span-1 text-center">主/客</div>
+            <div className="col-span-2 text-center">结果</div>
           </div>
 
-          <div className="divide-y divide-border">
-            {matches.map(m => {
-              const isWin = m.result === 'win'
-              const isLose = m.result === 'lose'
-              return (
-                <div key={m.id} className={`grid grid-cols-[80px_1fr_100px_60px] gap-3 py-3.5 items-center text-sm hover:bg-bg-elevated transition-colors`}>
-                  <span className="text-text-dim text-xs">{m.date.slice(5)}</span>
-                  <span className="truncate">
-                    <span className={m.home ? 'text-primary font-medium' : ''}>{m.home ? 'TinmanFC' : m.opponent}</span>
-                    <span className="text-text-dim mx-1.5 text-xs">vs</span>
-                    <span className={!m.home ? 'text-primary font-medium' : ''}>{!m.home ? 'TinmanFC' : m.opponent}</span>
-                  </span>
-                  <span className="font-display font-bold text-center">{m.score}</span>
-                  <span className={`text-right text-xs font-bold ${isWin ? 'text-primary' : isLose ? 'text-red' : 'text-gold'}`}>
-                    {isWin ? '胜' : isLose ? '负' : '平'}
-                  </span>
-                </div>
-              )
-            })}
-          </div>
+          {matches.map((match) => (
+            <div
+              key={match.id}
+              className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 items-center py-4 border-b border-border/50 hover:bg-white/[0.02] transition-colors px-2 -mx-2"
+            >
+              <div className="md:col-span-2 text-muted text-sm">
+                {match.date}
+              </div>
+              <div className="md:col-span-3 text-white font-medium">
+                {match.opponent}
+              </div>
+              <div className="md:col-span-2 text-muted text-sm">
+                {match.competition}
+              </div>
+              <div className="md:col-span-2 font-display text-xl text-white text-center">
+                {match.score}
+              </div>
+              <div className="md:col-span-1 text-center text-muted text-sm">
+                {match.home ? '主场' : '客场'}
+              </div>
+              <div className="md:col-span-2 text-center">
+                <span
+                  className={`inline-block font-display text-lg px-3 py-0.5 ${
+                    match.result === 'win'
+                      ? 'text-accent bg-accent/5'
+                      : match.result === 'lose'
+                      ? 'text-red bg-red/5'
+                      : 'text-gold bg-gold/5'
+                  }`}
+                >
+                  {match.result === 'win'
+                    ? '胜'
+                    : match.result === 'lose'
+                    ? '负'
+                    : '平'}
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
     </div>

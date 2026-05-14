@@ -1,59 +1,94 @@
+import { Image, Film } from 'lucide-react'
 import { galleryItems } from '../data/teamData'
-import { Camera, Calendar, Image, Film } from 'lucide-react'
 
 export default function Gallery() {
   return (
     <div>
-      {/* ===== HERO ===== */}
-      <section className="py-20 lg:py-32">
-        <div className="max-w-[800px] mx-auto text-center px-6">
-          <span className="text-red font-display text-[11px] tracking-[0.3em]">GALLERY</span>
-          <h1 className="font-display font-black text-4xl lg:text-7xl mt-3 mb-4">
-            精彩<span className="text-primary">瞬间</span>
+      {/* Hero */}
+      <section className="pt-32 pb-16 md:pt-40 md:pb-24">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-accent text-xs tracking-[0.3em] font-medium mb-4">
+            GALLERY
+          </p>
+          <h1 className="font-display text-6xl md:text-8xl text-white tracking-wide">
+            球队相册
           </h1>
-          <p className="text-text-secondary text-sm lg:text-lg">每一个画面，都是一段铁人的故事</p>
         </div>
       </section>
 
-      {/* ===== 瀑布流网格 ===== */}
-      <section className="py-0 lg:py-0">
-        <div className="max-w-[1000px] mx-auto px-6 lg:px-10 pb-16 lg:pb-24">
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
+      {/* 相册网格 */}
+      <section className="pb-20 md:pb-28">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {galleryItems.map((item, i) => {
               const isFeatured = i === 0
               return (
-                <div key={item.id} className={`group border border-border rounded-lg overflow-hidden hover:border-primary/20 transition-colors ${isFeatured ? 'col-span-2 row-span-2' : ''}`}>
+                <div
+                  key={item.id}
+                  className={`group border border-border overflow-hidden hover:border-accent/20 transition-colors animate-slide-up ${
+                    isFeatured
+                      ? 'sm:col-span-2 sm:row-span-2'
+                      : ''
+                  }`}
+                  style={{ animationDelay: `${i * 0.08}s` }}
+                >
                   {/* 图片占位 */}
-                  <div className={`relative bg-bg-card flex items-center justify-center overflow-hidden ${isFeatured ? 'h-[200px] lg:h-[280px]' : 'h-[120px] lg:h-[160px]'}`}>
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] to-blue/[0.02]" />
-                    {item.type === 'video' ? (
-                      <Film className="text-primary/20 group-hover:text-primary/40 transition-colors" size={isFeatured ? 36 : 24} />
-                    ) : (
-                      <Image className="text-primary/20 group-hover:text-primary/40 transition-colors" size={isFeatured ? 36 : 24} />
-                    )}
-                    <div className="absolute top-2 right-2 bg-bg/80 backdrop-blur-sm rounded px-1.5 py-0.5 text-[10px] text-primary flex items-center gap-1">
-                      <Camera size={9} />
-                      {item.type === 'photo' ? '照片' : '视频'}
+                  <div
+                    className={`relative bg-dark-3 flex items-center justify-center ${
+                      isFeatured ? 'min-h-[400px]' : 'min-h-[220px]'
+                    }`}
+                  >
+                    {/* 类型标识 */}
+                    <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-dark/80 backdrop-blur-sm px-2.5 py-1.5 text-xs">
+                      {item.type === 'video' ? (
+                        <>
+                          <Film size={12} className="text-accent" />
+                          <span className="text-muted-2">视频</span>
+                        </>
+                      ) : (
+                        <>
+                          <Image size={12} className="text-muted-2" />
+                          <span className="text-muted-2">照片</span>
+                        </>
+                      )}
+                    </div>
+
+                    {/* 日期 */}
+                    <div className="absolute top-3 left-3 text-muted text-xs bg-dark/80 backdrop-blur-sm px-2 py-1">
+                      {item.date}
+                    </div>
+
+                    {/* 占位图案 */}
+                    <div className="text-center">
+                      <div className="w-12 h-12 border border-border mx-auto mb-2 flex items-center justify-center">
+                        {item.type === 'video' ? (
+                          <Film size={20} className="text-accent/30" />
+                        ) : (
+                          <Image size={20} className="text-muted/30" />
+                        )}
+                      </div>
+                      <span className="text-muted/40 text-xs">
+                        {isFeatured ? '精选照片' : '照片'}
+                      </span>
                     </div>
                   </div>
-                  {/* 文字 */}
-                  <div className="p-3 lg:p-4">
-                    <h3 className="font-medium text-xs lg:text-sm mb-0.5 group-hover:text-primary transition-colors truncate">{item.title}</h3>
-                    <p className="text-text-dim text-[10px] lg:text-xs line-clamp-1">{item.description}</p>
-                    <div className="flex items-center gap-1 text-text-dim text-[10px] mt-1">
-                      <Calendar size={9} /><span>{item.date}</span>
-                    </div>
+
+                  {/* 文字区 */}
+                  <div className="p-5">
+                    <h3
+                      className={`font-medium text-white ${
+                        isFeatured ? 'text-xl' : 'text-base'
+                      }`}
+                    >
+                      {item.title}
+                    </h3>
+                    <p className="text-muted-2 text-sm mt-1">
+                      {item.description}
+                    </p>
                   </div>
                 </div>
               )
             })}
-          </div>
-
-          {/* 更多提示 */}
-          <div className="mt-12 lg:mt-16 border border-border rounded-lg p-6 lg:p-10 text-center">
-            <Camera className="mx-auto text-primary/30 mb-3" size={28} />
-            <h3 className="font-display font-medium text-sm lg:text-base mb-1.5">更多精彩即将上线</h3>
-            <p className="text-text-dim text-xs">正在整理更多比赛照片和训练视频，敬请期待</p>
           </div>
         </div>
       </section>
