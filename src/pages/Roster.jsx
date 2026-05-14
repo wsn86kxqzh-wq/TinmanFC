@@ -18,15 +18,9 @@ function RevealSection({ children, className = '', delay = 0 }) {
 
 const positionColors = {
   GK: 'bg-accent/10 text-accent border-accent/20',
-  CB: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-  LB: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-  RB: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-  CDM: 'bg-gold/10 text-gold border-gold/20',
-  CM: 'bg-gold/10 text-gold border-gold/20',
-  CAM: 'bg-gold/10 text-gold border-gold/20',
-  LW: 'bg-red/10 text-red border-red/20',
-  RW: 'bg-red/10 text-red border-red/20',
-  ST: 'bg-red/10 text-red border-red/20',
+  DF: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  MF: 'bg-gold/10 text-gold border-gold/20',
+  FW: 'bg-red/10 text-red border-red/20',
 }
 
 export default function Roster() {
@@ -37,18 +31,15 @@ export default function Roster() {
   const positions = [
     { key: 'all', label: t.roster.filters.all },
     { key: 'GK', label: t.roster.filters.goalkeeper },
-    { key: 'DEF', label: t.roster.filters.defender, positions: ['CB', 'LB', 'RB'] },
-    { key: 'MID', label: t.roster.filters.midfielder, positions: ['CDM', 'CM', 'CAM'] },
-    { key: 'FWD', label: t.roster.filters.forward, positions: ['LW', 'RW', 'ST'] },
+    { key: 'DF', label: t.roster.filters.defender },
+    { key: 'MF', label: t.roster.filters.midfielder },
+    { key: 'FW', label: t.roster.filters.forward },
   ]
 
   const filtered =
     filter === 'all'
       ? players
-      : players.filter((p) => {
-          const group = positions.find((pos) => pos.key === filter)
-          return group.positions ? group.positions.includes(p.position) : p.position === filter
-        })
+      : players.filter((p) => p.position === filter)
 
   return (
     <div>

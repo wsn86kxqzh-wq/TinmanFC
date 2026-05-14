@@ -76,8 +76,8 @@ export default {
     { year: '2023', event: 'Club Founded', desc: 'A group of football-loving friends from Chengdu met on the pitch and decided to form their own team' },
     { year: '2023', event: 'First Official Match', desc: 'Won the first-ever match 3-1, and the Iron Spirit took root' },
     { year: '2024', event: 'Joined Chengdu Amateur League', desc: 'Entered the league system, began systematic training and matches' },
-    { year: '2025', event: 'Best Season', desc: 'Third place in the league, longest five-game winning streak in club history' },
-    { year: '2026', event: 'New Chapter', desc: 'Squad expanded to 22 players, aiming for the championship' },
+    { year: '2025', event: 'Best Season', desc: '35 matches played, 24 wins, 69% win rate, 275 goals scored' },
+    { year: '2026', event: 'New Chapter', desc: '21-player squad ready, continuing the journey' },
   ],
 
   // Matches page
@@ -175,15 +175,9 @@ export default {
   // Position map
   positionMap: {
     GK: 'Goalkeeper',
-    CB: 'Center Back',
-    LB: 'Left Back',
-    RB: 'Right Back',
-    CDM: 'Defensive Mid',
-    CM: 'Central Mid',
-    CAM: 'Attacking Mid',
-    LW: 'Left Wing',
-    RW: 'Right Wing',
-    ST: 'Striker',
+    DF: 'Defender',
+    MF: 'Midfielder',
+    FW: 'Forward',
   },
 
   // Result map
