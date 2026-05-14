@@ -183,3 +183,51 @@ body {
 .link-underline:hover::after {
   width: 100%;
 }
+
+/* ===== 移动端优化 ===== */
+
+/* 隐藏横向滚动条（筛选栏等） */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* 移动端卡片不浮动（减少触摸误触） */
+@media (hover: none) {
+  .card-lift:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .btn-glow:hover {
+    transform: none;
+  }
+  .btn-glow:hover::after {
+    opacity: 0;
+  }
+}
+
+/* 移动端点击反馈替代 hover */
+@media (hover: none) {
+  .card-lift:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* 文字截断 */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 安全区域适配（刘海屏） */
+@supports (padding: env(safe-area-inset-bottom)) {
+  footer {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}

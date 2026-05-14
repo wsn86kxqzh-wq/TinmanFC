@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
+import { LanguageProvider } from './i18n/LanguageContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -24,19 +25,21 @@ function PageWrapper({ children }) {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <main className="min-h-screen pt-16">
-        <Routes>
-          <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
-          <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
-          <Route path="/matches" element={<PageWrapper><Matches /></PageWrapper>} />
-          <Route path="/roster" element={<PageWrapper><Roster /></PageWrapper>} />
-          <Route path="/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
-          <Route path="/join" element={<PageWrapper><Join /></PageWrapper>} />
-        </Routes>
-      </main>
-      <Footer />
-    </BrowserRouter>
+    <LanguageProvider>
+      <BrowserRouter>
+        <Navbar />
+        <main className="min-h-screen pt-14 md:pt-16">
+          <Routes>
+            <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+            <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
+            <Route path="/matches" element={<PageWrapper><Matches /></PageWrapper>} />
+            <Route path="/roster" element={<PageWrapper><Roster /></PageWrapper>} />
+            <Route path="/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
+            <Route path="/join" element={<PageWrapper><Join /></PageWrapper>} />
+          </Routes>
+        </main>
+        <Footer />
+      </BrowserRouter>
+    </LanguageProvider>
   )
 }
