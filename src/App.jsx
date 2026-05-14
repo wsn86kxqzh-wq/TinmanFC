@@ -12,7 +12,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <main className="min-h-screen">
+      <main className="min-h-screen pt-16">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

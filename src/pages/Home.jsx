@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div>
       {/* ===== HERO ===== */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden">
         {/* 背景纹理 */}
         <div className="absolute inset-0 bg-dark">
           <div className="absolute inset-0 opacity-[0.03]"
