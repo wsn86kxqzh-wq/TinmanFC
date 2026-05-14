@@ -39,6 +39,7 @@ body {
   overflow-x: hidden;
 }
 
+/* 滚动条 */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -57,6 +58,7 @@ body {
   color: var(--color-bg-dark);
 }
 
+/* ===== 动画 ===== */
 @keyframes pulse-glow {
   0%, 100% { opacity: 0.6; }
   50% { opacity: 1; }
@@ -72,6 +74,11 @@ body {
   50% { transform: translateY(-8px); }
 }
 
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(0, 255, 136, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.4); }
+}
+
 .animate-slide-up {
   animation: slide-up 0.6s ease-out forwards;
 }
@@ -84,6 +91,11 @@ body {
   animation: float 3s ease-in-out infinite;
 }
 
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* 文字渐变 */
 .text-gradient {
   background: linear-gradient(135deg, var(--color-primary), var(--color-accent-blue));
   -webkit-background-clip: text;
@@ -91,10 +103,12 @@ body {
   background-clip: text;
 }
 
+/* 发光边框 */
 .glow-border {
   box-shadow: 0 0 15px rgba(0, 255, 136, 0.15), inset 0 0 15px rgba(0, 255, 136, 0.05);
 }
 
+/* 卡片 hover */
 .card-hover {
   transition: all 0.3s ease;
 }
@@ -105,7 +119,7 @@ body {
   border-color: var(--color-primary) !important;
 }
 
-/* Mobile optimizations */
+/* ===== 移动端优化 ===== */
 @media (max-width: 640px) {
   .card-hover:hover {
     transform: none;
@@ -118,7 +132,7 @@ body {
   }
 }
 
-/* Touch-friendly targets */
+/* 触控友好 */
 @media (pointer: coarse) {
   button, a {
     min-height: 44px;
@@ -126,13 +140,13 @@ body {
   }
 }
 
-/* Prevent horizontal overflow */
+/* 防止横向溢出 */
 img, video, svg {
   max-width: 100%;
   height: auto;
 }
 
-/* Smooth momentum scrolling on iOS */
+/* iOS 平滑滚动 */
 .overflow-x-auto {
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -142,7 +156,16 @@ img, video, svg {
   display: none;
 }
 
-/* Line clamp utility */
+/* 隐藏滚动条通用 */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* 行数截断 */
 .line-clamp-1 {
   display: -webkit-box;
   -webkit-line-clamp: 1;
